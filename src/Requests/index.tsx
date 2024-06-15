@@ -5,19 +5,20 @@ import { ILogin } from "../Stores/Interfaces/login.interface";
 
 axios.defaults.baseURL = CONFIG.SERVER_BASE_URL;
 
-export const loginUser = (data: ILogin) => {
-  return axios.post<ILoginResponse>("user/login", data);
-};
-
-export const setUpToken = () => {
+export const setUpTokenToAxios = (token: string) => {
   axios.interceptors.request.use(
     (config) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      config.headers.Authorization = `Bearer ${token}`;
       return config;
     },
     (error) => Promise.reject(error)
   );
+};
+
+export const loginUser = (data: ILogin) => {
+  return axios.post<ILoginResponse>("user/login", data);
+};
+
+export const getCurrentUser = (id: number) => {
+  return axios.get(`user/${id}`);
 };

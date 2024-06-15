@@ -1,21 +1,13 @@
 import { Button, TextField } from "@mui/material";
 import "./styles.scss";
 import useUserStore from "../../Stores/UserStore";
-import { redirect } from "react-router-dom";
-import { setUpToken } from "../../Requests";
 
 const Login: React.FC = () => {
-  const email = useUserStore().email;
-  const password = useUserStore().password;
-  const setEmail = useUserStore().setEmail;
-  const setPassword = useUserStore().setPassword;
-  const sendData = useUserStore().sendData;
-
-  const savedToken = localStorage.getItem("token");
-  if (savedToken) {
-    setUpToken();
-    redirect("/home");
-  }
+  const email = useUserStore((state) => state.email);
+  const password = useUserStore((state) => state.password);
+  const setEmail = useUserStore((state) => state.setEmail);
+  const setPassword = useUserStore((state) => state.setPassword);
+  const sendData = useUserStore((state) => state.sendData);
 
   return (
     <div className="container">
