@@ -1,7 +1,5 @@
 import { create } from "zustand";
-import { IErrorResponse } from "../common/interfaces/error-response.interface";
-import { getCurrentUser, loginUser, setUpTokenToAxios } from "../Requests";
-import { AxiosError } from "axios";
+import { loginUser } from "../Requests";
 
 type UserStore = {
   id?: number;
@@ -9,55 +7,31 @@ type UserStore = {
   password: string;
   token?: string;
 
+  setId: (id: number) => void;
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
   sendData: (email: string, password: string) => Promise<void>;
   setToken: (token?: string) => void;
-  checkToken: () => Promise<void>;
 };
 
-const useUserStore = create<UserStore>((set, get) => ({
+const useUserStore = create<UserStore>((set) => ({
   id: undefined,
   email: "",
   password: "",
   token: "",
+
+  setId: (id) => set({ id }),
   setEmail: (email) => set({ email }),
   setPassword: (password) => set({ password }),
-  setToken: (token) => {
-    if (token) {
-      localStorage.setItem("token", token);
-      setUpTokenToAxios(token);
-    }
-    set({ token });
-  },
+  setToken: (token) => set({ token }),
   sendData: async (email: string, password: string) => {
-    try {
-      const response = await loginUser({
-        email,
-        password,
-      });
-      const token: string = response.data.token;
+    const response = await loginUser({
+      email,
+      password,
+    });
+    const token: string = response.data.token;
 
-      get().setToken(token);
-
-      set(() => ({ email: "", password: "" }));
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        const errorResponse = error.response?.data as IErrorResponse;
-        alert(errorResponse.errors);
-      }
-    }
-  },
-  checkToken: async () => {
-    const token = get().token;
-    const id = get().id;
-
-    if (!token || !id) return;
-    try {
-      await getCurrentUser(id);
-    } catch (error) {
-      console.log(error);
-    }
+    set(() => ({ email: "", password: "", token }));
   },
 }));
 

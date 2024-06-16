@@ -1,7 +1,8 @@
 import axios from "axios";
 import { CONFIG } from "../common/config";
-import { ILoginResponse } from "../Stores/Interfaces/login-response.interface";
-import { ILogin } from "../Stores/Interfaces/login.interface";
+import { ILoginResponse } from "./Interfaces/login-response.interface";
+import { ILogin } from "./Interfaces/login.interface";
+import { IUserResponse } from "./Interfaces/user-response.interface";
 
 axios.defaults.baseURL = CONFIG.SERVER_BASE_URL;
 
@@ -19,6 +20,6 @@ export const loginUser = (data: ILogin) => {
   return axios.post<ILoginResponse>("user/login", data);
 };
 
-export const getCurrentUser = (id: number) => {
-  return axios.get(`user/${id}`);
+export const getCurrentUser = () => {
+  return axios.get<IUserResponse>("user/me");
 };
