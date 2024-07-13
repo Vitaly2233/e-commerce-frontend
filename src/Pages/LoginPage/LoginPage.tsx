@@ -2,39 +2,32 @@ import './styles.scss'
 import { Button, TextField } from '@mui/material'
 import useUserStore from '../../Stores/UserStore.ts'
 import { useNavigate } from 'react-router-dom'
-import { loginUser } from '../../Requests'
 import { AxiosError } from 'axios'
 import { IErrorResponse } from '../../common/interfaces/error-response.interface.ts'
 import React from 'react'
 
 const LoginPage: React.FC = () => {
-  const email = useUserStore((state) => state.email);
-  const password = useUserStore((state) => state.password);
-  const setEmail = useUserStore((state) => state.setEmail);
-  const setPassword = useUserStore((state) => state.setPassword);
-  const navigate = useNavigate();
+  const email = useUserStore((state) => state.email)
+  const password = useUserStore((state) => state.password)
+  const setEmail = useUserStore((state) => state.setEmail)
+  const setPassword = useUserStore((state) => state.setPassword)
+  const sendData = useUserStore((state) => state.sendData)
+  const navigate = useNavigate()
 
   const handleSubmitForm = async () => {
     try {
-      const response = await loginUser({
-        email,
-        password,
-      });
+      await sendData(email, password)
 
-      const token = response.data.token;
-
-      localStorage.setItem("token", token);
-
-      return navigate("/home");
+      return navigate('/home')
     } catch (error) {
-      console.log(error);
+      console.log(error)
 
       if (error instanceof AxiosError) {
-        const errorResponse = error.response?.data as IErrorResponse;
-        alert(errorResponse.message);
+        const errorResponse = error.response?.data as IErrorResponse
+        alert(errorResponse.message)
       }
     }
-  };
+  }
 
   return (
     <div className="container">
@@ -48,9 +41,7 @@ const LoginPage: React.FC = () => {
             variant="outlined"
             type="email"
             value={email}
-            onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
+            onInput={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           />
         </div>
         <div className="textFieldMargin">
@@ -61,9 +52,7 @@ const LoginPage: React.FC = () => {
             variant="outlined"
             type="password"
             value={password}
-            onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
+            onInput={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
         </div>
         <Button onClick={handleSubmitForm} variant="contained">

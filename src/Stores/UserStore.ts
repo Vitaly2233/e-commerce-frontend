@@ -11,10 +11,9 @@ type UserStore = {
   setEmail: (email: string) => void
   setPassword: (password: string) => void
   sendData: (email: string, password: string) => Promise<void>
-  setToken: (token?: string) => void
 }
 
-const useUserStore = create<UserStore>((set) => ({
+const useUserStore = create<UserStore>((set, getState) => ({
   id: undefined,
   email: '',
   password: '',
@@ -23,13 +22,16 @@ const useUserStore = create<UserStore>((set) => ({
   setId: (id) => set({ id }),
   setEmail: (email) => set({ email }),
   setPassword: (password) => set({ password }),
-  setToken: (token) => set({ token }),
-  sendData: async (email: string, password: string) => {
+  sendData: async () => {
+    const state = getState()
+
     const response = await loginUser({
-      email,
-      password,
+      email: state.email,
+      password: state.password,
     })
     const token: string = response.data.token
+
+    localStorage.setItem('token', token)
 
     set(() => ({ email: '', password: '', token }))
   },
