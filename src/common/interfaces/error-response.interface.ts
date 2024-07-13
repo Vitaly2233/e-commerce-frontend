@@ -1,4 +1,4 @@
 export interface IErrorResponse {
-  errors: string;
-  message: string;
+  errors: string
+  message: string
 }

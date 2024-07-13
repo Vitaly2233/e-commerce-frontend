@@ -1,7 +1,9 @@
 type EnvConfig = {
-  SERVER_BASE_URL: string;
-};
+  AUTH_SERVICE_URL: string
+  USER_SERVICE_URL: string
+}
 
 export const CONFIG: EnvConfig = {
-  SERVER_BASE_URL: "http://localhost:3000/",
-};
+  AUTH_SERVICE_URL: 'http://localhost:3002',
+  USER_SERVICE_URL: 'http://localhost:3000',
+}

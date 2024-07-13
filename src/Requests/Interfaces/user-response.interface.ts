@@ -1,4 +1,4 @@
 export interface IUserResponse {
-  id: number;
-  email: string;
+  id: number
+  email: string
 }

@@ -1,24 +1,24 @@
-import { create } from "zustand";
-import { loginUser } from "../Requests";
+import { create } from 'zustand'
+import { loginUser } from '../Requests'
 
 type UserStore = {
-  id?: number;
-  email: string;
-  password: string;
-  token?: string;
+  id?: number
+  email: string
+  password: string
+  token?: string
 
-  setId: (id: number) => void;
-  setEmail: (email: string) => void;
-  setPassword: (password: string) => void;
-  sendData: (email: string, password: string) => Promise<void>;
-  setToken: (token?: string) => void;
-};
+  setId: (id: number) => void
+  setEmail: (email: string) => void
+  setPassword: (password: string) => void
+  sendData: (email: string, password: string) => Promise<void>
+  setToken: (token?: string) => void
+}
 
 const useUserStore = create<UserStore>((set) => ({
   id: undefined,
-  email: "",
-  password: "",
-  token: "",
+  email: '',
+  password: '',
+  token: '',
 
   setId: (id) => set({ id }),
   setEmail: (email) => set({ email }),
@@ -28,11 +28,11 @@ const useUserStore = create<UserStore>((set) => ({
     const response = await loginUser({
       email,
       password,
-    });
-    const token: string = response.data.token;
+    })
+    const token: string = response.data.token
 
-    set(() => ({ email: "", password: "", token }));
+    set(() => ({ email: '', password: '', token }))
   },
-}));
+}))
 
-export default useUserStore;
+export default useUserStore
