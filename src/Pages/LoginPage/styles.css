@@ -1,0 +1,31 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.textFieldMargin {
+  margin: 10px 0;
+}
+
+.label {
+  text-align: center;
+  color: blue;
+  margin: 0;
+}
+
+.button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+}
