@@ -1,10 +1,13 @@
 import './styles.css'
-import { Button, TextField } from '@mui/material'
-import useUserStore from '../../Stores/UserStore.ts'
+import 'react-toastify/dist/ReactToastify.css'
+
+import React, { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
+import { Button, TextField } from '@mui/material'
+import useUserStore from '../../Stores/UserStore.ts'
 import { IErrorResponse } from '../../common/interfaces/error-response.interface.ts'
-import React, { FormEvent } from 'react'
 
 const LoginPage: React.FC = () => {
   const email = useUserStore((state) => state.email)
@@ -19,13 +22,13 @@ const LoginPage: React.FC = () => {
       event.preventDefault()
       await sendData(email, password)
 
-      return navigate('/home')
+      return navigate('/')
     } catch (error) {
       console.log(error)
 
       if (error instanceof AxiosError) {
         const errorResponse = error.response?.data as IErrorResponse
-        alert(errorResponse.message)
+        toast.error(errorResponse.message)
       }
     }
   }
@@ -34,8 +37,8 @@ const LoginPage: React.FC = () => {
     <div className="container">
       <div className="inner-container">
         <h2 className="label">Login</h2>
-        <form onSubmit={handleSubmitForm}>
-          <div className="textFieldMargin">
+        <form className="form-container" onSubmit={handleSubmitForm}>
+          <div className="input-margin">
             <TextField
               id="email"
               label="Email"
@@ -46,7 +49,7 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
-          <div className="textFieldMargin">
+          <div className="input-margin">
             <TextField
               id="password"
               label="Password"
@@ -62,6 +65,7 @@ const LoginPage: React.FC = () => {
           </Button>
         </form>
       </div>
+      <ToastContainer position={'top-right'} />
     </div>
   )
 }

@@ -1,14 +1,20 @@
-import { Navigate, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import HomePage from '../Pages/Home/HomePage'
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom'
 import LoginPage from '../Pages/LoginPage/LoginPage'
 import Protected from './protected'
 import { isAuthenticated } from './helpers'
+import ProductsTab from '../Tabs/ProductsTab.tsx'
+import OrdersTab from '../Tabs/OrdersTab.tsx'
+import SidebarTabs from '../Tabs/SidebarTabs'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route element={<Protected />}>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<SidebarTabs />}>
+          <Route path="products" element={<ProductsTab />} />
+          <Route path="orders" element={<OrdersTab />} />
+        </Route>
+        <Route path="*" element={<Navigate to={'/'} />} />
       </Route>
       <Route path="/login" element={<LoginPage />} loader={isAuthenticated} />
       <Route path="*" element={<Navigate to={'/login'} />} />

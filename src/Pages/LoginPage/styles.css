@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 
-.textFieldMargin {
+.input-margin {
   margin: 10px 0;
 }
 
@@ -19,6 +19,11 @@
   text-align: center;
   color: blue;
   margin: 0;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .button {
