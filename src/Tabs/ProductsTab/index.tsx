@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ProductsTab: React.FC = () => {
-  return <div>Products page</div>
+  return <div>Products</div>
 }
 
 export default ProductsTab

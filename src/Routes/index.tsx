@@ -2,8 +2,8 @@ import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterP
 import LoginPage from '../Pages/LoginPage/LoginPage'
 import Protected from './protected'
 import { isAuthenticated } from './helpers'
-import ProductsTab from '../Tabs/ProductsTab.tsx'
-import OrdersTab from '../Tabs/OrdersTab.tsx'
+import ProductsTab from '../Tabs/ProductsTab'
+import OrdersTab from '../Tabs/OrdersTab'
 import SidebarTabs from '../Tabs/SidebarTabs'
 
 const tabRoutes = ['/products', '/orders']
