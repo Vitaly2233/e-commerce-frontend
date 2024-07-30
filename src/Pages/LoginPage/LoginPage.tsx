@@ -63,6 +63,7 @@ const LoginPage: React.FC = () => {
           <Button type="submit" variant="contained">
             Login
           </Button>
+          <Button>Is not a member? Register here</Button>
         </form>
       </div>
       <ToastContainer position={'top-right'} />

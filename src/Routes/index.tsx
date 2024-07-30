@@ -5,6 +5,7 @@ import { isAuthenticated } from './helpers'
 import ProductsTab from '../Tabs/ProductsTab'
 import OrdersTab from '../Tabs/OrdersTab'
 import SidebarTabs from '../Tabs/SidebarTabs'
+import RegistrationPage from '../Pages/RegistrationPage'
 
 const tabRoutes = ['/products', '/orders']
 
@@ -19,9 +20,10 @@ const router = createBrowserRouter(
         <Route path="*" element={<Navigate to={tabRoutes[0]} />} />
       </Route>
       <Route path="/login" element={<LoginPage />} loader={isAuthenticated} />
+      <Route path="/registration" element={<RegistrationPage />} loader={isAuthenticated} />
       <Route path="*" element={<Navigate to={'/login'} />} />
-    </Route>,
-  ),
+    </Route>
+  )
 )
 
 const Index = () => {
